@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>Guest App</title>
+		<meta name="description" content="" />
+		<meta name="author" content="paula" />
+
+		<meta name="viewport" content="width=device-width; initial-scale=1.0" />
+
+		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+		
+		<link href="jq/jquery.mobile-1.3.1.min.css" rel="stylesheet" type="text/css"/><!---include css-->
+		<script type="text/javascript" src="jq/jquery-1.10.1.min.js"></script><!--include jquery-->
+		<script type="text/javascript" src="jq/jquery.mobile-1.3.1.min.js"></script><!--include jquery mobile-->
+		
+		<link href="css/stylep.css" rel="stylesheet" type="text/css"/> <!--include overwrite jq css file-->
+		<script src="js/js.js"></script>
+		
+		<script>
+		
+		
+			//ANONYMOUS FUNCTION WHICH CALLS THOSE WRAPPED WITHIN IT WHEN PAGE LOADS 
+$(function () {    //OPENING OF ANONYMOUS FUNCTION 
+	
+	
+}); //CLOSE OF ANONYMOUS FUNCTION AT TOP OF SCRIPT WHICH CALLS THE QUIZ QUESTIONS function AND SUBMIT ANSWERS FUNCTION 
+
+//FUNCTION TO DISPLAY THE QUIZ QUESTIONS ON PAGE FIVE OF THE INDEX SHOULD RUN BEFORE PAGE LOADS 
+	$(document).on('pagebeforeshow', '#quiz', function() {           	   
+                //Declare a variable to store the url you are calling  
+                var  url = "sampleJSON.php";  
+                //All your jquery goodness goes in here  
+                $.getJSON(url, function(data){  
+                    
+      			var items = new Array(); //CREATES A VARIABLE ITEMS WHICH IS AN ARRAY FOR JSON CONTENT 
+ 
+ /*----- Use the jquery $.each() function to iterate through  item in the array In this case we wrap each item in a paragraph tag */  
+                  
+                   		$.each(data, function(i,jsonItem){  //for each item in the array returned loop through it 
+                        	items.push('<p>' + jsonItem['question_text'] + '</p>');  //push the item into paragrpah
+                        	items.push('<ul>');  //open an unnumbered list 
+                       
+                       		// console.log(jsonItem['question_text']); DEBUG
+   				
+   				 		$.each(jsonItem['answers'], function(i,jsonAnswer){ 
+    					 //TAKES EACH ITEM FROM THE ITEMS ARRAY CALLED ANSWERS AND PUSHES TO DOM IN HTML FORMAT DICTATED IN THE FUNCTION BLOW 
+                        	
+                        	  items.push('<li>');  
+                        	  var rdo = "<input type = 'radio' name='answer[" + jsonAnswer['question_id'] +  "]'  value='"+ jsonAnswer['answer_id'] +"'/>";
+                        	  items.push(rdo);
+                        	  items.push(jsonAnswer['answer_text']);  
+                        	  items.push('</li>');  
+                        	});//END OF FOR EACH ANSWERS FUNCTION      
+                        
+                        items.push('</ul>');  // closes the unnumbered list 
+                        
+                     });   //close of the for each loop 
+                    /*---------------*/
+                    
+                  var output = items.join(''); 
+                    
+                    /*  Outside the $.each() function, we append the content to the div  */  
+				    
+				 $('#ajaxContent').append(output);  
+				 //finds the id within the html and inserts the data via instructed function into relevant div
+          
+            }); // close for the .getJson function   
+               
+        }); 
+ // END OF QUIZ  QUESTIONS CALLED ....all content will go inside the two {} 
+
+		</script>
+		
+		<script>
+			//this is a global variable and it is used on guestbook page 
+			var guestBookListCounter = 0;
+			
+			
+		</script>
+		
+		
+		</head>
+
+	<!--<body>-->
+	
+		<body onLoad="addButtonListeners();">
+
+	<!-------------template--->
+	<!--<div data-role="page">
+
+	<div data-role="header">
+		<h1>Entry Page </h1>
+	</div><!-- /header --
+
+	<div data-role="content">
+		<p>Page content goes here.</p>
+	</div><!-- /content --
+
+	<div data-role="footer">
+		<h4>Page Footer</h4>
+	</div><!-- /footer --
+</div><!-- /page -->
+	
+	<!----------------end template--------------->
+	
+<!--the initial login page ----->	
+	<div data-role="page" data-theme="a"> 
+	
+			<div data-role="header">
+				<h1>Login Guest App</h1>
+			</div>
+	
+	
+			<div data-role="content" position="absolute" data-theme="a">
+				
+					<img src="images/moposa_logo.png" alt="moposa" width="340" height="180" align="" style="">
+ 		</div> <!--end of image div-->
+	
+				<div class="loginPage" data-theme="b">
+			
+			<!--beginning of sample form1 with basic valdation taken from javascript kit which will allow user on access to divert to another page with correct login details---><!--<h3>Login to Moposa Guest App</h3>-->
+			
+					<form name = "myform" data-theme="a" class="loginForm">
+						<p>Please enter your user name 
+						<input type="text" name="username" value = "Paula"> 
+						<br />
+						Please enter your password
+						<input type="password" name="pword" value = "Password1">
+						<!-- <input type="button" id="login" data-theme="a" value="Sign in to Moposa" name="Submit" onclick="validate()"> -->
+						<a data-role = "button" id="login">Sign In</a>
+						<!--the on click event calls a function which will check user has inputted correct login details and can then leave and enter assigned site--->
+						</p>
+					</form><!--end form1--->
+				
+				</div>
+			<!--<div data-role="footer"><h4>Page Footer</h4></div>--->
+		</div> 
+		
+<!--------------End  Login page ------------------->	
+	
+
+
+	<!-------------main menu entry page --->
+	<div data-role="page" data-theme="a" id="page">
+
+		<div data-role="header">
+			<h1>Moposa</h1>
+		</div><!-- /header -->
+
+				<div data-role="content" data-theme="a">
+					
+					<div class="ui-grid-a">
+							<a href="#respond" data-role="button" class="ui-block-a getScore4" alt="RSVP"></a>
+							<a href="#takePhoto" data-role="button" class="ui-block-b getScore3" alt="TakePhoto"></a>
+						</div>
+					
+						<div class="ui-grid-solo">
+							<a href="#" class="ui-block-a getScore1"></a>
+						</div>
+					
+						<div class="ui-grid-a">
+							<a href="#guestBook" data-role="button" class="ui-block-a getScore2" alt="guestbook"></a>
+							<a href="#quiz" data-role="button" class="ui-block-b getScore" alt="Quiz"></a>
+						</div>
+				
+				</div><!--end content-->
+							
+	</div><!-- /page -->
+	
+	<!----------------end main menu entry page --------------->
+	
+	
+	<!-------------quiz page -------------->
+	<div data-role="page" id="quiz" data-theme="a">
+
+		<div data-role="header">
+			<h1>Wedding Quiz</h1>
+		</div><!-- /header -->
+
+			<div data-role="content">
+				<!--<p>Form for the Quiz</p> -->
+				
+					<form id="formsubmitanswers">
+				
+						<!-- takes the input from the user to insert into in db -->
+						<input type='text' id='guest_id' name='guest_id' value='' /> 
+			
+    					<!--the div which will holdthe appended content from the quiz questions function -->	
+    					<div id="ajaxContent" class="ajaxContent">  </div>
+				
+						<!---the button used to call the event handler to submit answers to db-->
+						<input type='submit' id="submitanswers" value='Submit Answers' />
+					
+						<!--used to jump to score page -->
+						<a href="#guestScore" data-role="button">Get My Score!!
+						</a>
+				
+					</form>
+				
+			</div><!-- /content -->
+
+	</div><!-- /page -->
+	
+	<!----------------end quiz page -------------->
+	
+	
+	<!-------------score page --->
+	<div data-role="page" id="guestScore" data-theme="a">
+
+		<div data-role="header">
+			<h1>Guest Results </h1>
+		</div><!-- /header -->
+
+			<div data-role="content" data-theme="a">
+				<!--<p>Click Below to Get Results</p>-->
+				
+				<input type='submit' id="getMyScore" value='Go To My Score' data-theme="a"/> 
+				<!--<button>Get Score</button> -->
+					<div id="myScore">	</div>
+				
+				<input type='submit' id="getAllScore" value='Go To Scoreboard' data-theme="a"/> 
+				<!-- 	<button>Leader board </button> -->
+				
+			</div><!-- /content -->
+
+	</div><!-- /page -->
+	
+	<!----------------end score page --------------->
+	
+	
+<!------------RSVP Page --------------------->
+		
+	<div data-role="page" data-theme="a" id="respond">
+	
+		<div data-role="header" id="page2Header">
+		<h1>Respond</h1>
+		</div>
+		
+   				 <div data-role="content" data-theme="a">	
+    	
+						<div class="ui-grid-solo">
+						<a href="http://www.moposa.com/janeandadam/5" class="ui-block-a getScore5" alt="RSVP"></a>
+						</div>
+					
+						<div class="ui-grid-a">
+							<a href="http://www.moposa.com/janeandadam/3" data-role="button" class="ui-block-a getScore7" alt="StaticMap"></a>
+							<a href="#gmap" data-role="button" class="ui-block-b getScore8" alt="livemap"></a>
+						</div>
+    					
+    					<div class="ui-grid-solo">
+						<a href="http://www.moposa.com/janeandadam" class="ui-block-a getScore6" alt="Couple Website"></a>
+						</div>
+	
+				</div>	
+	
+	</div>
+	<!--end page-->
+
+<!-----------------Map Page ------------->
+	<div data-role="page" id="staticMap" data-theme="a">
+
+			<div data-role="header">
+				<h1>Staic Map </h1>
+			</div><!-- /header -->
+
+				<div data-role="content">
+				
+					<div class="staticMap" data-theme="a">
+		
+				
+					</div>
+			
+				</div><!-- /content -->
+
+			
+		</div><!-- /page -->
+		
+<!--end map page ----------->
+
+
+
+<!--live map page------------>
+		<div data-role="page" id="gmap" data-theme="a">
+
+				<div data-role="header">
+					<h1>Live Map </h1>
+				</div><!-- /header -->
+
+						<div data-role="content">
+							<div id="map">
+								
+								
+							</div>
+							
+						</div><!-- /content -->
+
+				<div data-role="footer">
+					<h4>Page Footer</h4>
+				</div><!-- /footer -->
+		</div><!-- /page -->
+
+<!--end live map page ---------->
+
+
+
+
+<!--take photo page ----------->
+		<div data-role="page" id="takePhoto">
+
+				<div data-role="header">
+					<h1>Entry Page </h1>
+				</div><!-- /header -->
+			
+				<div data-role="content">
+					<p>Page content goes here.</p>
+				</div><!-- /content -->
+			
+				<div data-role="footer">
+					<h4>Page Footer</h4>
+				</div><!-- /footer -->
+		</div><!-- /page -->
+
+<!--end take photo --------->
+
+
+
+<!---guestbook page -------->
+		<div data-role="page" data-theme="a" id="guestBook">
+			
+			<div data-role="header">
+					<h3>The Guestbook</h3>
+			</div><!-- /header -->
+			
+			<div data-role="content" data-theme="a">
+				<!--	<p>Page content goes here.</p>-->
+				
+				<div>
+					<!--<label for="basic">Comment Content:</label>-->
+						<!--this will take the input entered by a user and onClick event diplay it in a list below 
+							based on the instruction in the function bound to the onclick event in the buttonhandlers.js-->
+   				 
+   					<input type="text" id="addComment"  data-theme="d" value="Enter your comment here" />
+				
+					
+						<a id="guestBookComment" data-role="button" data-theme="a">Click here to add a comment</a>
+				
+							<br>
+						<ul data-role="listview" id="commentList" data-theme="a" class="commentLI">
+ 				
+ 						</ul><!--end of unordered list-->
+				
+				</div><!--end of Comment content div-->
+				
+				
+			</div><!-- /content -->
+			
+				
+		</div><!-- /page -->
+
+
+<!--end guestbook page ---------->
+
+	
+
+	</body> <!----close body ---------->
+</html><!--close html----------->

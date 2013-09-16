@@ -1,0 +1,156 @@
+body {
+
+}
+
+.ui-page 
+	{
+	min-height: 500px;
+	
+}
+
+.ui-page-active
+	 {
+	
+	min-height: 500px;
+	
+	
+}
+
+.loginForm {
+	
+	width: 300px;
+	height: 200px;
+	
+	
+}
+
+.getScore
+	{
+    width: 135px !important;    
+    height: 135px !important;   
+    background: transparent url('../images/Button_Games.png') no-repeat center center !important; 
+    background-size: contain !important;
+}
+
+.getScore1
+	{
+    width: 270px !important;    
+    height: 170px !important;   
+    background: transparent url('../images/Button_Settings.png') no-repeat center center !important; 
+    background-size: contain !important;
+}
+
+
+.getScore2
+			{
+    width: 135px !important;    
+    height: 135px !important;   
+    background: transparent url('../images/Button_Guestbook.png') no-repeat center center !important; 
+    background-size: contain !important;
+}
+
+.getScore3
+	{
+    width: 135px !important;    
+    height: 135px !important;   
+    background: transparent url('../images/Button_Camera.png') no-repeat center center !important; 
+    background-size: contain !important;
+}
+
+
+.getScore4
+	{
+    width: 135px !important;    
+    height: 135px !important;   
+    background: transparent url('../images/Button_RSVP.png') no-repeat center center !important; 
+    background-size: contain !important;
+}
+
+
+.getScore5
+	{
+    width: 270px !important;    
+    height: 150px !important;   
+    background: transparent url('../images/Button_View_Invite.png') no-repeat center center !important; 
+    background-size: contain !important;
+}
+
+.getScore6
+	{
+    width: 270px !important;    
+    height: 150px !important;   
+    background: transparent url('../images/Button_Couples_Website.png') no-repeat center center !important; 
+    background-size: contain !important;
+}
+
+.getScore7
+	{
+    width: 130px !important;    
+    height: 130px !important;   
+    background: transparent url('../images/Button_Static_Map.png') no-repeat center center !important; 
+    background-size: contain !important;
+}
+
+.getScore8
+	{
+    width: 130px !important;    
+    height: 130px !important;   
+    background: transparent url('../images/Button_Live_Map.png') no-repeat center center !important; 
+    background-size: contain !important;
+}
+
+.guestBookui
+	{
+	background-color:#00FFCC;
+	
+}
+
+.guestBookUI2
+	{
+	background-color:#ffffff;
+	color:#000000;
+	text-decoration:none;
+}
+
+
+.commentLI
+	{
+	
+	width: 200px;
+	
+}
+
+.commentLI2
+	{
+	
+  	padding:1em;
+  	margin:1em;
+  	display:inline;
+	width: 250px;
+	height: 50px;
+	background-color:#FFFFCC;
+}
+
+.commentLIH
+	{
+	color:#000000;
+	display:block;
+	text-decoration:none;
+	padding:14px;		
+	width: 200px;
+	height: 100px;	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
